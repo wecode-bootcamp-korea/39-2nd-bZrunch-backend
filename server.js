@@ -1,13 +1,10 @@
+require('dotenv').config();
 const { createApp } = require('./app');
 const { appDataSource } = require('./src/models/data-source');
 
 const startServer = async () => {
     const app = createApp();
     const PORT = process.env.PORT;
-
-    app.get('/ping', (req, res) => {
-        res.json({ message: 'pong' });
-    });
 
     await appDataSource
         .initialize()
