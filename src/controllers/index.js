@@ -1,3 +1,4 @@
 const userControllers = require('./userControllers');
+const writingsController = require('./writingsController');
 
-module.exports = { userControllers };
+module.exports = { writingsController,userControllers};
