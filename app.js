@@ -2,10 +2,9 @@ const http = require('http');
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const { globalErrorHandler } = require('./src/utils/err');
-
 require('dotenv').config();
 
+const { globalErrorHandler } = require('./src/utils/err');
 const { routes } = require('./src/routes');
 
 const createApp = () => {
