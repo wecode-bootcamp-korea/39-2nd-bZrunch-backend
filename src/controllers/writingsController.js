@@ -11,4 +11,12 @@ const searchTitle = catchAsync(async (req, res) => {
     return res.status(200).json({ result });
 });
 
-module.exports = { searchTitle };
+const getAllWritings = catchAsync(async (req, res) => {
+    const { price, limit, offset } = req.query;
+
+    const result = await writingsService.getAllWritings(price, limit, offset);
+
+    return res.status(200).json({ result });
+});
+
+module.exports = { searchTitle, getAllWritings };
