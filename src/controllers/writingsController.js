@@ -11,12 +11,12 @@ const searchTitle = catchAsync(async (req, res) => {
     return res.status(200).json({ result });
 });
 
-const getAllWritings = catchAsync(async (req, res) => {
-    const { price, limit, offset } = req.query;
+const getWritings = catchAsync(async (req, res) => {
+    const { price, cate_id, limit, offset } = req.query;
 
-    const result = await writingsService.getAllWritings(price, limit, offset);
+    const result = await writingsService.getWritings(price, cate_id, limit, offset);
 
     return res.status(200).json({ result });
 });
 
-module.exports = { searchTitle, getAllWritings };
+module.exports = { searchTitle, getWritings };

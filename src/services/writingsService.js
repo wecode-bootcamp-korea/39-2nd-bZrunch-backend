@@ -4,8 +4,7 @@ const searchTitle = async (searchWord) => {
     return await writingsDao.searchTitle(searchWord);
 };
 
-const getAllWritings = async (price, offset, limit) => {
-    return await writingsDao.getAllWritings(price, offset, limit);
+const getWritings = async (price, cate_id, offset, limit) => {
+    return await writingsDao.getWritings(price, cate_id, offset, limit);
 };
-
-module.exports = { searchTitle, getAllWritings };
+module.exports = { searchTitle, getWritings };
