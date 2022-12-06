@@ -104,4 +104,54 @@ describe('Get All Writings', () => {
                 ],
             });
     });
+    test('Writings Filtered By Cate_id', async () => {
+        await request(app)
+            .get('/writings?cate_id=2')
+            .expect(200)
+            .expect({
+                result: [
+                    {
+                        id: 2,
+                        title: '코딩의 중독은 이런 것',
+                        content: '세상 모든 것은 코딩에서부터',
+                        header_image: 'https://picsum.photos/200/300',
+                        price: 0,
+                        authors: 'Mr.Kim',
+                    },
+                    {
+                        id: 9,
+                        title: '해킹으로서의 삶',
+                        content: '우리 모두 해커가 되어보자',
+                        header_image: 'https://picsum.photos/200/300',
+                        price: 0,
+                        authors: 'Mr.LeeY',
+                    },
+                ],
+            });
+    });
+    test('Writings Filtered By Cate_id and Price', async () => {
+        await request(app)
+            .get('/writings?cate_id=3&price=1000')
+            .expect(200)
+            .expect({
+                result: [
+                    {
+                        id: 3,
+                        title: '망나니 개발자 인생',
+                        content: '망나니 개발자 되는 법 1 : 그냥 복붙을 해라',
+                        header_image: 'https://picsum.photos/200/300',
+                        price: 1000,
+                        authors: 'Mr.Lee',
+                    },
+                    {
+                        id: 10,
+                        title: 'MySQL 결합집합은 이렇게',
+                        content: '안된다',
+                        header_image: 'https://picsum.photos/200/300',
+                        price: 1000,
+                        authors: 'Mr.Kimbo',
+                    },
+                ],
+            });
+    });
 });

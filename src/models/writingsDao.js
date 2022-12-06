@@ -21,9 +21,9 @@ const searchTitle = async (searchWord) => {
     return result;
 };
 
-const getAllWritings = async (price, limit, offset) => {
+const getWritings = async (price, cate_id, limit, offset) => {
     const limitOffset = setLimitOffset(limit, offset);
-    const whereList = makeWhereList(price);
+    const whereList = makeWhereList(price, cate_id);
     const result = await appDataSource.query(
         `
         SELECT
@@ -60,13 +60,16 @@ const setLimitOffset = (limit, offset) => {
     };
 };
 
-const makeWhereList = (price) => {
+const makeWhereList = (price, cate_id) => {
     const startLine = `WHERE `;
-    const priceFilter = [`w.id IS NOT NULL`];
-    if (price) {
-        priceFilter.push(`w.price = ${price}`);
+    const filter = [`w.id IS NOT NULL`];
+    if (cate_id) {
+        filter.push(`w.category_id = ${cate_id}`);
     }
-    const body = priceFilter.join(' AND ');
+    if (price) {
+        filter.push(`w.price = ${price}`);
+    }
+    const body = filter.join(' AND ');
     const combined = startLine + body;
     return {
         toSqlString: function () {
@@ -75,4 +78,4 @@ const makeWhereList = (price) => {
     };
 };
 
-module.exports = { searchTitle, getAllWritings };
+module.exports = { searchTitle, getWritings };
