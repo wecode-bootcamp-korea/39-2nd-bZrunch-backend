@@ -2,7 +2,7 @@ const axios = require('axios');
 const qs = require('qs');
 const jwt = require('jsonwebtoken');
 
-const { userDao } = require('../models');
+const { authDao } = require('../models');
 
 const GRANT_TYPE = process.env.GRANT_TYPE;
 const REST_API_KEY = process.env.REST_API_KEY;
@@ -35,10 +35,10 @@ const kakaoLogin = async (KAKAO_CODE) => {
     const profile_image = kakaoUserInfo.properties['profile_image'];
     const description = `${name}의 공간입니다.`;
 
-    const userInfo = await userDao.getUserBykakaoId(kakaoId);
+    const userInfo = await authDao.getUserBykakaoId(kakaoId);
 
     if (!userInfo) {
-        await userDao.createUser(kakaoId, name, profile_image, description);
+        await authDao.createUser(kakaoId, name, profile_image, description);
     }
 
     const accessToken = jwt.sign({ id: userInfo.id }, process.env.JWT_SECRET);
@@ -47,7 +47,7 @@ const kakaoLogin = async (KAKAO_CODE) => {
 };
 
 const getUserById = async (id) => {
-    return await userDao.getUserById(id);
+    return await authDao.getUserById(id);
 };
 
 module.exports = { kakaoLogin, getUserById };

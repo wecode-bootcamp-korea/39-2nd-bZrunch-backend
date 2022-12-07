@@ -1,10 +1,10 @@
-const { userService } = require('../services');
+const { authService } = require('../services');
 const { catchAsync } = require('../utils/err');
 
 const signIn = catchAsync(async (req, res) => {
     try {
         const { KAKAO_CODE } = req.body;
-        const userInfo = await userService.kakaoLogin(KAKAO_CODE);
+        const userInfo = await authService.kakaoLogin(KAKAO_CODE);
 
         return res.status(200).json({ userInfo: userInfo });
     } catch (err) {
