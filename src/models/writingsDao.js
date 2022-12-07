@@ -78,4 +78,36 @@ const makeWhereList = (price, cate_id) => {
     };
 };
 
-module.exports = { searchTitle, getWritings };
+const getwritingInfo = async (writingsId) => {
+    const result = await appDataSource.query(
+        `select
+        w.title,
+        w.content,
+        w.price,
+        w.header_image,
+        u.name as writer,
+        w.user_id as author_id,
+        count(lw.writing_id) as likes,
+        (
+           SELECT 
+           COUNT(al.author_id)
+           FROM authors_likes al 
+           WHERE al.author_id = w.user_id
+           GROUP BY al.author_id
+        ) as subscribers,
+        c.color
+        FROM
+        writings w
+        LEFT join users u on w.user_id = u.id
+        LEFT join users_like_writings lw on w.id = lw.writing_id
+        LEFT JOIN colors c ON c.id = w.color_id
+        where w.id= ?
+        GROUP by w.title
+        `,
+        [writingsId]
+    );
+
+    return result;
+};
+
+module.exports = { searchTitle, getWritings, getwritingInfo };

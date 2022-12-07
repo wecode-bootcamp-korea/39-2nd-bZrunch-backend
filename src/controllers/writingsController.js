@@ -19,4 +19,14 @@ const getWritings = catchAsync(async (req, res) => {
     return res.status(200).json({ result });
 });
 
-module.exports = { searchTitle, getWritings };
+const getwritingInfo = catchAsync(async (req, res) => {
+    const { writings_id } = req.params;
+    if (isNaN(writings_id)) {
+        throw new CustomError('BAD_REQUEST', 400);
+    }
+    const writing = await writingsService.getwritingInfo(writings_id);
+
+    return res.status(200).json({ writing });
+});
+
+module.exports = { searchTitle, getWritings, getwritingInfo };
