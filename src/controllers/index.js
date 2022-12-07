@@ -2,5 +2,5 @@ const authController = require('./authController');
 const writingsController = require('./writingsController');
 const likesController = require('./likesController');
 const usersContorller = require('./usersController');
-
-module.exports = { writingsController, authController, usersContorller, likesController };
+const paymentController = require('./paymentController');
+module.exports = { writingsController, authController, paymentController, likesController, usersContorller };
