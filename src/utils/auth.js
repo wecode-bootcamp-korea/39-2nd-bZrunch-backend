@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
-const { userService } = require('../services');
+const { authService } = require('../services');
 
 const loginRequired = async (req, res, next) => {
     try {
@@ -15,7 +15,7 @@ const loginRequired = async (req, res, next) => {
 
         const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
-        const user = await userService.getUserById(decoded.id);
+        const user = await authService.getUserById(decoded.id);
 
         if (!user) {
             const error = new Error('USER_DOES_NOT_EXIST');
