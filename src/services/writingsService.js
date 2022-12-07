@@ -7,4 +7,9 @@ const searchTitle = async (searchWord) => {
 const getWritings = async (price, cate_id, offset, limit) => {
     return await writingsDao.getWritings(price, cate_id, offset, limit);
 };
-module.exports = { searchTitle, getWritings };
+
+const getwritingInfo = async (writings_id) => {
+    return await writingsDao.getwritingInfo(writings_id);
+};
+
+module.exports = { searchTitle, getWritings, getwritingInfo };
