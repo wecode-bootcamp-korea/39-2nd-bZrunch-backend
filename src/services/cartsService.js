@@ -13,4 +13,8 @@ const addCart = async (user_id, writing_id) => {
     return '장바구니에 추가되었습니다.';
 };
 
-module.exports = { showCart, addCart };
+const deleteCart = async (cart_id) => {
+    return await cartsDao.deleteCart(cart_id);
+};
+
+module.exports = { showCart, deleteCart, addCart };
