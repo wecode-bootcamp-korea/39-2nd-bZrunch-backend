@@ -57,4 +57,16 @@ const addCart = async (user_id, writing_id) => {
     );
 };
 
+const deleteCart = async (cart_id) => {
+    await appDataSource.query(
+        `
+        DELETE 
+        FROM 
+            carts 
+        WHERE carts.id = ?
+        `,
+        [cart_id]
+    );
+};
+
 module.exports = { showCart, checkCart, addCart };
