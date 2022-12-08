@@ -10,4 +10,12 @@ const showCart = catchAsync(async (req, res) => {
     return res.status(200).json({ result });
 });
 
-module.exports = { showCart };
+const addCart = catchAsync(async (req, res) => {
+    const user_id = req.user;
+    const writing_id = req.body.writing_id;
+    const result = await cartsService.addCart(user_id, writing_id);
+
+    return res.status(200).json({ message: result });
+});
+
+module.exports = { showCart, addCart };

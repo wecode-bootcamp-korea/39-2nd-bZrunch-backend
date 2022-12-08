@@ -29,4 +29,32 @@ const showCart = async (user_id) => {
     return result;
 };
 
-module.exports = { showCart };
+const checkCart = async (user_id, writing_id) => {
+    const [result] = await appDataSource.query(
+        `
+        SELECT EXISTS (
+            SELECT 
+                *
+            FROM
+                carts
+            WHERE user_id = ? AND writing_id = ?) AS EXIST
+        `,
+        [user_id, writing_id]
+    );
+    return result.EXIST;
+};
+
+const addCart = async (user_id, writing_id) => {
+    await appDataSource.query(
+        `
+        INSERT INTO carts (
+            user_id,
+            writing_id
+        ) VALUES
+        (?,?);
+        `,
+        [user_id, writing_id]
+    );
+};
+
+module.exports = { showCart, checkCart, addCart };
