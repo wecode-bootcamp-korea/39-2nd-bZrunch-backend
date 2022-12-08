@@ -29,4 +29,17 @@ const getwritingInfo = catchAsync(async (req, res) => {
     return res.status(200).json({ writing });
 });
 
-module.exports = { searchTitle, getWritings, getwritingInfo };
+const createWriting = catchAsync(async (req, res) => {
+    const user_id = req.user;
+    const { title, content, header_image, price, category_id, color_id } = req.body;
+    if (!title || !content || isNaN(price) || !category_id) {
+        const err = new Error('KEY ERROR');
+        err.statusCode = 400;
+        throw err;
+    }
+    await writingsService.createWriting(user_id, title, content, header_image, price, category_id, color_id);
+
+    return res.status(201).json({ message: '성공적으로 글을 게시하였습니다.' });
+});
+
+module.exports = { searchTitle, getWritings, getwritingInfo, createWriting };

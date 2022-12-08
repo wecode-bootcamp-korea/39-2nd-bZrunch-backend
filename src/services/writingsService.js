@@ -12,4 +12,8 @@ const getwritingInfo = async (writings_id) => {
     return await writingsDao.getwritingInfo(writings_id);
 };
 
-module.exports = { searchTitle, getWritings, getwritingInfo };
+const createWriting = async (user_id, title, content, header_image, price, category_id, color_id) => {
+    return await writingsDao.createWriting(user_id, title, content, header_image, price, category_id, color_id);
+};
+
+module.exports = { searchTitle, getWritings, getwritingInfo, createWriting };

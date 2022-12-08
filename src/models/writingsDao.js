@@ -110,4 +110,20 @@ const getwritingInfo = async (writingsId) => {
     return result;
 };
 
-module.exports = { searchTitle, getWritings, getwritingInfo };
+const createWriting = async (user_id, title, content, header_image, price, category_id, color_id) => {
+    await appDataSource.query(
+        `
+        INSERT INTO writings (
+            title,
+            content,
+            header_image,
+            color_id,
+            price,
+            category_id,
+            user_id
+        ) VALUES (?,?,?,?,?,?,?)`,
+        [title, content, header_image, color_id, price, category_id, user_id]
+    );
+};
+
+module.exports = { searchTitle, getWritings, getwritingInfo, createWriting };
